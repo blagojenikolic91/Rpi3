@@ -41,12 +41,14 @@ echo "-------------------- Copy i3 Config ----------------------"
 echo "=========================================================="
 echo
 
+mkdir -p /home/pi/.config/i3
+
 cp config/i3.config /home/pi/.config/i3/config
-chown -R pi:pi /home/pi/.config/i3/config
+chown -R pi:pi /home/pi/.config/i3
 
 #sed -i.bak '/window_manager=lxde/a\window_manager=i3' /etc/xdg/lxsession/LXDE-pi/desktop.conf
 
-sed 's/window_manager=lxde/window_manager=i3/g' /etc/xdg/lxsession/LXDE-pi/desktop.conf
+sed -i.bak 's/window_manager=mutter/window_manager=i3/g' /etc/xdg/lxsession/LXDE-pi/desktop.conf
 
 
 rm -f /etc/environment 
