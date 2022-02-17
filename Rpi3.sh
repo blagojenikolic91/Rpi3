@@ -14,10 +14,12 @@ echo "		i3       - Tiling Windows manager"
 echo "		feh      - Image viewer and i3 wallpaper add"
 echo "		conky    - Wiget application "
 echo "		rofi     - Finder application "
+echo "		st       - Simple Terminal - Terminal Emulator "
+
 
 apt update > /dev/null
 
-for package in vim i3 screenfetch feh conky-all rofi
+for package in vim i3 screenfetch feh conky-all rofi stterm neofetch
 do
 
 apt install $package -y
@@ -42,17 +44,19 @@ echo "=========================================================="
 echo
 
 mkdir -p /home/pi/.config/i3
-
 cp config/i3.config /home/pi/.config/i3/config
 chown -R pi:pi /home/pi/.config/i3
 
-#sed -i.bak '/window_manager=lxde/a\window_manager=i3' /etc/xdg/lxsession/LXDE-pi/desktop.conf
-
+cp /etc/xdg/lxsession/LXDE-pi/desktop.conf /etc/xdg/lxsession/LXDE-pi/desktop.conf.bak
 sed -i.bak 's/window_manager=mutter/window_manager=i3/g' /etc/xdg/lxsession/LXDE-pi/desktop.conf
 
-
+cp /etc/environment /etc/environment.bak
 rm -f /etc/environment 
 echo 'LIBGL_ALWAYS_SOFTWARE=true' > /etc/environment 
+
+cp /etc/xdg/lxsession/LXDE-pi/autostart /etc/xdg/lxsession/LXDE-pi/autostart.bak
+
+echo "@lxpanel --profile LXDE-pi" > /etc/xdg/lxsession/LXDE-pi/autostart
 
 
 # >> script.log 2>>script_error.log
